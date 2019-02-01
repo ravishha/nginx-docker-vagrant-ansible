@@ -1,0 +1,23 @@
+---
+- hosts: "{{ host_list }}"
+  become: yes
+  remote_user: ansible
+  gather_facts: no
+  become_method: sudo
+  tasks:
+    - name: 'Build an nginx container'
+      docker_image:
+         path: '/vagrant'
+         name: 'mynginx:001'
+         state: 'build'
+    - name: 'Start and expose the nginx container'
+      docker_container:
+         image: 'mynginx:001'
+         restart: 'yes'
+         restart_policy: 'always'
+         state: 'started'
+         pull: 'false'
+         ports:
+            - '80:80'
+            - '443:443'
+         name: 'mynginx-container'  
