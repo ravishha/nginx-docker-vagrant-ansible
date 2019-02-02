@@ -61,5 +61,6 @@ Vagrant.configure("2") do |config|
 		ansiblesvr_config.vm.provision "shell", inline: $docker_script
 		ansiblesvr_config.vm.provision "shell", inline: "sudo ansible-playbook '/vagrant/ansible/playbooks/01_ansible_usr.yml' -v --extra-vars 'host_list=localhost'"
 		ansiblesvr_config.vm.provision "shell", inline: "sudo ansible-playbook '/vagrant/ansible/playbooks/02_docker_nginx.yml' -v --extra-vars host_'list=localhost'"
+		ansiblesvr_config.vm.provision "shell", inline: "/vagrant/build_test.sh"
 	end
 end
